@@ -29,7 +29,7 @@ Lancement du script :
 ```
 perl Script.pl
 ```
-Pour comprendre le fonctionnement voici la doc de l'utilisation de l'API se trouve [ici](https://api.georide.fr "Doc de l'API").
+Pour comprendre le fonctionnement voici la documentation de l'utilisation de l'API se trouve [ici](https://api.georide.fr "Doc de l'API").
 
 ## Fonctionnement
 Les identifiants (email et mot de passe) sont demandés, et vérifiés. Ils sont ensuite, selon le choix de l'utilisateur, stockés dans un fichier de config. Le token d'autorisation est chiffré pour le stockage.
