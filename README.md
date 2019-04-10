@@ -45,9 +45,10 @@ Toute proposition d'amélioration est la bienvenue. Si vous rencontrez un probl�
 
 ### Futures améliorations
 - [x] Intégration de l'affichage actuel de la moto
+- [ ] Ajout de la gestion pour plusieurs trackers
 - [ ] Intégration du socketIO pour avoir des alertes en temps réel
-- [ ] Amélioration de l'affichage sur google maps
 - [ ] Ajout d'un mode verbeux
+- [ ] Ajout du support de langue
 
 
 ✌️ 🇫🇷 🏍️
