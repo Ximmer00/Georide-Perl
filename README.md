@@ -47,6 +47,7 @@ Toute proposition d'amélioration est la bienvenue. Si vous rencontrez un probl�
 - [x] Intégration de l'affichage actuel de la moto
 - [ ] Intégration du socketIO pour avoir des alertes en temps réel
 - [ ] Amélioration de l'affichage sur google maps
+- [ ] Ajout d'un mode verbeux
 
 
 ✌️ 🇫🇷 🏍️
