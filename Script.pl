@@ -122,21 +122,6 @@ sub unlock_tracker {
     print "Toggled\n";
 }
 
-sub get_tracker_lock_state {
-
-    #say "get_tracker_lock_state sub";
-    my $bearer_header = shift;
-    my $tracker       = get_trackers($bearer_header);
-    if ( $tracker->{'isLocked'} ) {
-        printing_state(1);
-        return 1;
-    }
-    else {
-        printing_state(0);
-        return 0;
-    }
-}
-
 sub generate_token {
 
     #say "generate_token sub";
@@ -178,10 +163,10 @@ sub token_age {
 sub printing_state {
 
     #say "printing_state sub";
-    my $tracker_state = shift;
+    my ($tracker_state, $tracker_name) = @_;
     my $state;
     $tracker_state == 1 ? ( $state = "lock" ) : ( $state = "unlock" );
-    print "My tracker is $state\n";
+    print "$tracker_name is $state\n";
 }
 
 sub read_conf {
@@ -261,12 +246,34 @@ sub decrypt_string {
     }
 }
 
+sub show_status {
+  my $auth_header = shift;
+  my $tracker = get_trackers($auth_header);
+  my $tracker_name = $tracker->{'trackerName'};
+  my $kilometers = $tracker->{'odometer'}/1000;
+  if ( $tracker->{'isLocked'} ) {
+      printing_state(1, $tracker_name);
+  }
+  else {
+      printing_state(0, $tracker_name);
+  }
+  my $rounded = int($kilometers);
+  my $final = commify($rounded);
+  print "$tracker_name has $final km\n\n";
+}
+
+sub commify {
+    my $text = reverse $_[0];
+    $text =~ s/(\d\d\d)(?=\d)(?!\d*\.)/$1 /g;
+    return scalar reverse $text
+}
+
 sub open_browser {
     my ( $lat, $lon ) = @_;
     my $continue = prompt( "Do you want to open your browser ?", -y1t10 );
     if ($continue) {
         my $url = "https://www.google.com/maps/search/?api=1&query=$lat,$lon";
-        say $url;
+        # say $url;
         open_default_browser($url);
     }
     else {
@@ -283,7 +290,7 @@ sub open_default_browser {
     elsif ( $platform eq 'linux' ) { $cmd = "x-www-browser \"$url\""; }  # Linux
     elsif ( $platform eq 'MSWin32' ) { $cmd = "start $url"; }    # Win95..Win7
     if ( defined $cmd ) {
-        system($cmd);
+        system("$cmd 2>/dev/null");
     }
     else {
         die "Can't locate default browser";
@@ -325,13 +332,13 @@ sub command_treat {
         system("clear");
         say "Unlocked !";
     }
-    elsif ( $command eq "LockStatus" ) {
+    elsif ( $command eq "Status" ) {
         system("clear");
-        get_tracker_lock_state($auth_header);
+        show_status($auth_header);
     }
-    elsif ( $command eq "Position" ) {
-        open_browser( get_pos($auth_header) );
+    elsif ( $command eq "Locate" ) {
         system("clear");
+        open_browser( get_pos($auth_header) );
     }
     else {
         system("clear");
@@ -340,7 +347,7 @@ sub command_treat {
 }
 
 sub command_choice {
-    my $choices = [qw<Lock Unlock LockStatus Position>];
+    my $choices = [qw<Lock Unlock Status Locate>];
     my $command = prompt( "What do you want to do ?", -1, -menu => $choices );
     return $command;
 }
