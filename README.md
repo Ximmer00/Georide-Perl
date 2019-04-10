@@ -2,7 +2,7 @@
 
 ![Logo GeoRide](https://cdn.discordapp.com/attachments/476152053975089152/560858899503382528/logo_transparent_blanc.png)
 
-> Projet pour la Licence MI ASSR, module mi4 (Perl)
+> Projet pour la Licence MI ASSR, module mi4 (Perl), projet personnel et projet pour la communauté GeoRide.
 
 ## À quoi ça sert ?
 
