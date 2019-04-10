@@ -13,4 +13,4 @@ cpan -i Date::Calc
 cpan -i Crypt::Lite
 cpan -i URL::Encode
 
-echo "Module installtion done, you can now run the Script"
+echo "Modules installation done, you can now run the Script"
