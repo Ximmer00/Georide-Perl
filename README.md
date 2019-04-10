@@ -1,6 +1,6 @@
 # GeoRide Perl
 
-![Logo GeoRide](https://cdn.discordapp.com/attachments/476152053975089152/560858899503382528/logo_transparent_blanc.png)
+![Logo GeoRide](https://github.com/Ximmer00/Georide-Perl/blob/master/logo_transparent.png)
 
 > Projet pour la Licence MI ASSR, module mi4 (Perl), projet personnel et projet pour la communauté GeoRide.
 
