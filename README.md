@@ -20,7 +20,6 @@ Pour utiliser le script, il faut avoir un tracker ([Site de GeoRide](https://geo
 Installation des dépendances perl :
 
 ```
-chmod +x ./pre_install.sh
 ./pre_install.sh
 ```
 
@@ -41,6 +40,7 @@ Toute proposition d'amélioration est la bienvenue. Si vous rencontrez un probl�
 
 
 ### Futures améliorations
+- [ ] Modification du regex pour l'email (besoin de plus de souplesse)
 - [x] Intégration de l'affichage actuel de la moto
 - [ ] Ajout de la gestion pour plusieurs trackers
 - [ ] Intégration du socketIO pour avoir des alertes en temps réel
