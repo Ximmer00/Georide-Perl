@@ -2,7 +2,7 @@
 # Written by Loïc BONNARD, under the course of Mr Darold, in LPRO MI ASSR.
 use strict;
 use warnings;
-# use Data::Dumper; #Debug Purpose
+use Data::Dumper;    #Debug Purpose
 
 #List of all modules to use.
 use JSON::Parse 'parse_json';
@@ -10,7 +10,7 @@ use JSON::MaybeXS qw(encode_json);
 use Encode qw(encode_utf8);
 use LWP::UserAgent;
 use HTTP::Request;
-use 5.010;    #use for "say" command
+use 5.010;           #use for "say" command
 use IO::Prompter;
 use Config::Std;
 use DateTime;
@@ -88,13 +88,14 @@ sub get_trackers {    #This sub needs improvement about listing of trackers
     my $auth_header = shift;
     my $content     = request_to_api( '/user/trackers', 'GET', $auth_header );
     my $response    = parse_json($content);
+    print Dumper($response);
     if ( $response->[0]->{'canLock'} ) {
 
         # print("Can lock ", $response->[0]->{'trackerName'}."\n");
         return $response->[0];
     }
     else {
-        print( "Cannot lock ", $response->[0]->{'trackerName'} . "\n" );
+        print( "Cannot lock ", $response->[0]->{'trackerName'}, "\n" );
     }
 }
 
@@ -163,7 +164,7 @@ sub token_age {
 sub printing_state {
 
     #say "printing_state sub";
-    my ($tracker_state, $tracker_name) = @_;
+    my ( $tracker_state, $tracker_name ) = @_;
     my $state;
     $tracker_state == 1 ? ( $state = "lock" ) : ( $state = "unlock" );
     print "$tracker_name is $state\n";
@@ -173,7 +174,7 @@ sub read_conf {
 
     #say "read_conf sub";
     my $email = shift;
-    $email =~ /(^\w+)@[a-zA-Z_]+?\.[a-zA-Z]{2,5}$/;
+    $email =~ /(^[\w_\.]+)@[a-zA-Z_]+?\.[a-zA-Z]{2,5}$/;
     my $user = $1;
     read_config $CONF_FILE => my %config;
     return $config{$user};    #returning hash for user from config file
@@ -183,7 +184,7 @@ sub update_conf {
 
     #say "update_conf sub";
     my ( $mail, $key, $value ) = @_;
-    $mail =~ /(^\w+)@[a-zA-Z_]+?\.[a-zA-Z]{2,5}$/;
+    $email =~ /(^[\w_\.]+)@[a-zA-Z_]+?\.[a-zA-Z]{2,5}$/;
     my $user = $1;
     read_config $CONF_FILE => my %config;
     $config{$user}{$key} = $value;    #Updating information
@@ -197,7 +198,7 @@ sub exists_in_conf {
     if ( !-e $CONF_FILE ) {
         return 0;
     }
-    $email =~ /(^\w+)@[a-zA-Z_]+?\.[a-zA-Z]{2,5}$/;
+    $email =~ /(^[\w_\.]+)@[a-zA-Z_]+?\.[a-zA-Z]{2,5}$/;
     my $user = $1;
     read_config $CONF_FILE => my %config;
     return 1 if $config{$user};
@@ -210,7 +211,7 @@ sub create_config {
     say "Getting information from server, please wait ...";
     my ( $email, $password ) = @_;
     my %config;
-    $email =~ /(^\w+)@[a-zA-Z_]+?\.[a-zA-Z]{2,5}$/;
+    $email =~ /(^[\w_\.]+)@[a-zA-Z_]+?\.[a-zA-Z]{2,5}$/;
     my $user      = $1;
     my $td        = DateTime->now;
     my $authToken = get_token( $email, $password );    #getting back token
@@ -247,25 +248,25 @@ sub decrypt_string {
 }
 
 sub show_status {
-  my $auth_header = shift;
-  my $tracker = get_trackers($auth_header);
-  my $tracker_name = $tracker->{'trackerName'};
-  my $kilometers = $tracker->{'odometer'}/1000;
-  if ( $tracker->{'isLocked'} ) {
-      printing_state(1, $tracker_name);
-  }
-  else {
-      printing_state(0, $tracker_name);
-  }
-  my $rounded = int($kilometers);
-  my $final = commify($rounded);
-  print "$tracker_name has $final km\n\n";
+    my $auth_header  = shift;
+    my $tracker      = get_trackers($auth_header);
+    my $tracker_name = $tracker->{'trackerName'};
+    my $kilometers   = $tracker->{'odometer'} / 1000;
+    if ( $tracker->{'isLocked'} ) {
+        printing_state( 1, $tracker_name );
+    }
+    else {
+        printing_state( 0, $tracker_name );
+    }
+    my $rounded = int($kilometers);
+    my $final   = commify($rounded);
+    print "$tracker_name has $final km\n\n";
 }
 
 sub commify {
     my $text = reverse $_[0];
     $text =~ s/(\d\d\d)(?=\d)(?!\d*\.)/$1 /g;
-    return scalar reverse $text
+    return scalar reverse $text;
 }
 
 sub open_browser {
@@ -273,6 +274,7 @@ sub open_browser {
     my $continue = prompt( "Do you want to open your browser ?", -y1t10 );
     if ($continue) {
         my $url = "https://www.google.com/maps/search/?api=1&query=$lat,$lon";
+
         # say $url;
         open_default_browser($url);
     }
@@ -306,7 +308,7 @@ sub config_main {
         "Enter your georide email : ",
         -must => {
             'It must be a valid email :' =>
-              qr/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,5}$/i
+              qr/^[\w_\.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,5}$/i
         },
         -v
     );    #Just gathering email from user input
