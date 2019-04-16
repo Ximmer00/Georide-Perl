@@ -40,12 +40,13 @@ Toute proposition d'amélioration est la bienvenue. Si vous rencontrez un probl�
 
 
 ### Futures améliorations
-- [ ] Modification du regex pour l'email (besoin de plus de souplesse)
+- [x] Modification du regex pour l'email (besoin de plus de souplesse)
 - [x] Intégration de l'affichage actuel de la moto
 - [ ] Ajout de la gestion pour plusieurs trackers
 - [ ] Intégration du socketIO pour avoir des alertes en temps réel
 - [ ] Ajout d'un mode verbeux
 - [ ] Ajout du support de langue
+- [ ] Ajout de la posssibilité de multi account (append dans le fichier de conf)
 
 
 ✌️ 🇫🇷 🏍️
