@@ -200,7 +200,7 @@ sub command_treat {
         show_status($auth_header);
     }
     elsif ( $command eq "locate" ) {
-        show_loc($auth_header);
+        show_loc(get_pos($auth_header));
     }
 }
 
