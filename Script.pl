@@ -67,7 +67,7 @@ sub get_auth_header {
 
 sub get_token {
 
-    #say "get_token sub";
+    # say "get_token sub";
 
     #function to getting the account token (available 30 days)
     my ( $email, $password ) = @_;    #we need data to pass to POST http request
@@ -342,6 +342,12 @@ sub command_treat {
         system("clear");
         open_browser( get_pos($auth_header) );
     }
+    elsif ( $command eq "Exit" ) {
+        system("clear");
+        say "Ok sure, good bye ! :)";
+        sleep 1;
+        exit 0;
+    }
     else {
         system("clear");
         say "Wrong command";
@@ -377,9 +383,10 @@ sub Main {
         }
         else {
             say "Running temporary !";
+            $header = get_auth_header( get_token( $mail, $pass ) );
             my $tracker_raw = get_trackers($header);
             $temp   = 1;
-            $header = get_auth_header( get_token( $mail, $pass ) );
+            # say $header;
         }
     }
     else {
