@@ -135,7 +135,7 @@ sub get_pos {
 ################################################################################
 ####################  Functions for this script (local) ########################
 
-sub open_browser {
+sub show_loc {
     my ( $lat, $lon ) = @_;
     my $url = "https://www.google.com/maps/search/?api=1&query=$lat,$lon";
     say "Well, this are the coordinates of your the tracker : \nLatitude = $lat,\t longitude = $lon";
@@ -144,7 +144,6 @@ sub open_browser {
 
 
 sub printing_state {
-
     #say "printing_state sub";
     my ( $tracker_state, $tracker_name ) = @_;
     my $state;
@@ -199,6 +198,9 @@ sub command_treat {
     }
     elsif ( $command eq "status" ) {
         show_status($auth_header);
+    }
+    elsif ( $command eq "locate" ) {
+        show_loc($auth_header);
     }
 }
 
