@@ -88,7 +88,7 @@ sub get_trackers {    #This sub needs improvement about listing of trackers
     my $auth_header = shift;
     my $content     = request_to_api( '/user/trackers', 'GET', $auth_header );
     my $response    = parse_json($content);
-    print Dumper($response);
+    # print Dumper($response);
     if ( $response->[0]->{'canLock'} ) {
 
         # print("Can lock ", $response->[0]->{'trackerName'}."\n");
@@ -183,7 +183,7 @@ sub read_conf {
 sub update_conf {
 
     #say "update_conf sub";
-    my ( $mail, $key, $value ) = @_;
+    my ( $email, $key, $value ) = @_;
     $email =~ /(^[\w_\.]+)@[a-zA-Z_]+?\.[a-zA-Z]{2,5}$/;
     my $user = $1;
     read_config $CONF_FILE => my %config;

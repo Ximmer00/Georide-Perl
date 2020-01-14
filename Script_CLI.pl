@@ -47,7 +47,7 @@ sub request_to_api {
     if ( $res->is_success ) {
         return $res->decoded_content;    #returning the response decoded
     }
-    elsif ( $res->status_line =~ /429/ ) { #429 = too many requests
+    elsif ( $res->status_line =~ /429/ ) {
         system("sleep 1");
         $res = $ua->request($r);         #sending the http request
     }
@@ -78,7 +78,7 @@ sub get_token {
     my $auth_data =
       encode_utf8( encode_json($data) );  #tranforming to be use in http request
     my $response =
-      request_to_api('/user/login', 'POST', $HEADER, $auth_data )
+      request_to_api( '/user/login', 'POST', $HEADER, $auth_data )
       ;    #request to API to get back the auth Token
     my $content = parse_json($response);    #transforming reponse in hash
     return $content->{'authToken'};         #giving back the token
@@ -88,7 +88,7 @@ sub get_trackers {    #This sub needs improvement about listing of trackers
     my $auth_header = shift;
     my $content     = request_to_api( '/user/trackers', 'GET', $auth_header );
     my $response    = parse_json($content);
-    print Dumper($response);
+    # print Dumper($response);
     if ( $response->[0]->{'canLock'} ) {
 
         # print("Can lock ", $response->[0]->{'trackerName'}."\n");
@@ -183,7 +183,7 @@ sub read_conf {
 sub update_conf {
 
     #say "update_conf sub";
-    my ( $mail, $key, $value ) = @_;
+    my ( $email, $key, $value ) = @_;
     $email =~ /(^[\w_\.]+)@[a-zA-Z_]+?\.[a-zA-Z]{2,5}$/;
     my $user = $1;
     read_config $CONF_FILE => my %config;
