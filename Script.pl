@@ -344,7 +344,8 @@ sub command_treat {
     }
     elsif ( $command eq "Exit" ) {
         system("clear");
-        say "Ok sure, good bye ! :)"
+        say "Ok sure, good bye ! :)";
+        sleep 1;
         exit 0;
     }
     else {
