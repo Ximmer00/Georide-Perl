@@ -44,6 +44,6 @@ Toute proposition d'amélioration est la bienvenue. Si vous rencontrez un probl�
 
 ### Futures améliorations
 
--   [ ] Faire un mode sans aucun fichier (paramètre a ajouter a la commande)
+-   [x] Faire un mode sans aucun fichier (paramètre a ajouter a la commande)
 
 ✌️ 🇫🇷 🏍️
