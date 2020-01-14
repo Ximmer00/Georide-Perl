@@ -135,6 +135,13 @@ sub get_pos {
 ################################################################################
 ####################  Functions for this script (local) ########################
 
+sub open_browser {
+    my ( $lat, $lon ) = @_;
+    my $url = "https://www.google.com/maps/search/?api=1&query=$lat,$lon";
+    say "Well, this are the coordinates of your the tracker : \nLatitude = $lat,\t longitude = $lon";
+    say "Url to access with google : $url";
+}
+
 
 sub printing_state {
 
